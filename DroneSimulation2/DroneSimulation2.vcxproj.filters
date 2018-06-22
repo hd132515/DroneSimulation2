@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="FrontEnd">
+      <UniqueIdentifier>{957add79-fd01-44ca-a7c7-18f0bf4fca0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FrontEnd\Log Window">
+      <UniqueIdentifier>{af2bf616-2db2-415c-b59d-3d38a9059251}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FrontEnd\Etc">
+      <UniqueIdentifier>{6c6c9279-0ced-412e-87e0-446527c7f27b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="FrontEnd\Controller Window">
+      <UniqueIdentifier>{a6e5c12b-57df-461f-bc1f-ab0a66a51613}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FrontEnd\Scenario Setup">
+      <UniqueIdentifier>{26f3ed9c-1e76-4775-8c45-44ebded42d84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FrontEnd\3D Drawing Base">
+      <UniqueIdentifier>{a1133504-e576-4005-a15d-8ff0e8302257}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FrontEnd\3D Drawing Base\Cam">
+      <UniqueIdentifier>{85d2f82e-bf51-4eef-a0d9-1a0d4a0f0634}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Etc">
+      <UniqueIdentifier>{8ce7174d-a037-42ef-8360-35ea8250abc3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FrontEnd\3D Drawing Base\Basic Objects">
+      <UniqueIdentifier>{5afae1c4-3f4b-4bb1-af73-540d7aeda705}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FrontEnd\3D Drawing Base\Drone">
+      <UniqueIdentifier>{85c278a4-5fdb-45a8-94fc-60a693f50389}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DroneSimulation2.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MainFrm.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="DroneSimulation2Doc.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="DroneSimulation2View.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="FixedSplitterWnd.h">
+      <Filter>FrontEnd\Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="LogFrame.h">
+      <Filter>FrontEnd\Log Window</Filter>
+    </ClInclude>
+    <ClInclude Include="LogTargetView.h">
+      <Filter>FrontEnd\Log Window</Filter>
+    </ClInclude>
+    <ClInclude Include="LogContentsView.h">
+      <Filter>FrontEnd\Log Window</Filter>
+    </ClInclude>
+    <ClInclude Include="ControllerDlg.h">
+      <Filter>FrontEnd\Controller Window</Filter>
+    </ClInclude>
+    <ClInclude Include="ScenarioSetupView.h">
+      <Filter>FrontEnd\Scenario Setup</Filter>
+    </ClInclude>
+    <ClInclude Include="Direct3DView.h">
+      <Filter>FrontEnd\3D Drawing Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>FrontEnd\3D Drawing Base\Cam</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicVertex.h">
+      <Filter>FrontEnd\3D Drawing Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Axis.h">
+      <Filter>FrontEnd\3D Drawing Base\Basic Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>FrontEnd\3D Drawing Base\Basic Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Plane.h">
+      <Filter>FrontEnd\3D Drawing Base\Basic Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicIndex.h">
+      <Filter>FrontEnd\3D Drawing Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Drone.h">
+      <Filter>FrontEnd\3D Drawing Base\Drone</Filter>
+    </ClInclude>
+    <ClInclude Include="Box.h">
+      <Filter>FrontEnd\3D Drawing Base\Basic Objects</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DroneSimulation2.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="MainFrm.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="DroneSimulation2Doc.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="DroneSimulation2View.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="FixedSplitterWnd.cpp">
+      <Filter>FrontEnd\Etc</Filter>
+    </ClCompile>
+    <ClCompile Include="LogFrame.cpp">
+      <Filter>FrontEnd\Log Window</Filter>
+    </ClCompile>
+    <ClCompile Include="LogTargetView.cpp">
+      <Filter>FrontEnd\Log Window</Filter>
+    </ClCompile>
+    <ClCompile Include="LogContentsView.cpp">
+      <Filter>FrontEnd\Log Window</Filter>
+    </ClCompile>
+    <ClCompile Include="ControllerDlg.cpp">
+      <Filter>FrontEnd\Controller Window</Filter>
+    </ClCompile>
+    <ClCompile Include="ScenarioSetupView.cpp">
+      <Filter>FrontEnd\Scenario Setup</Filter>
+    </ClCompile>
+    <ClCompile Include="Direct3DView.cpp">
+      <Filter>FrontEnd\3D Drawing Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>FrontEnd\3D Drawing Base\Cam</Filter>
+    </ClCompile>
+    <ClCompile Include="Axis.cpp">
+      <Filter>FrontEnd\3D Drawing Base\Basic Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>FrontEnd\3D Drawing Base\Basic Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Plane.cpp">
+      <Filter>FrontEnd\3D Drawing Base\Basic Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Drone.cpp">
+      <Filter>FrontEnd\3D Drawing Base\Drone</Filter>
+    </ClCompile>
+    <ClCompile Include="Box.cpp">
+      <Filter>FrontEnd\3D Drawing Base\Basic Objects</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DroneSimulation2.reg" />
+    <None Include="res\DroneSimulation2.rc2">
+      <Filter>리소스 파일</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DroneSimulation2.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\DroneSimulation2Doc.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\DroneSimulation2.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\Toolbar.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
