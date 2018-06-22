@@ -200,10 +200,12 @@
     <ClInclude Include="DroneSimulation2Doc.h" />
     <ClInclude Include="DroneSimulation2View.h" />
     <ClInclude Include="FixedSplitterWnd.h" />
+    <ClInclude Include="Geometry.h" />
     <ClInclude Include="LogContentsView.h" />
     <ClInclude Include="LogFrame.h" />
     <ClInclude Include="LogTargetView.h" />
     <ClInclude Include="MainFrm.h" />
+    <ClInclude Include="Node.h" />
     <ClInclude Include="Plane.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ScenarioSetupView.h" />
@@ -217,18 +219,18 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ControllerDlg.cpp" />
     <ClCompile Include="Direct3DView.cpp" />
-    <ClCompile Include="Drone.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
+    <ClCompile Include="Drone.cpp" />
     <ClCompile Include="DroneSimulation2.cpp" />
     <ClCompile Include="DroneSimulation2Doc.cpp" />
     <ClCompile Include="DroneSimulation2View.cpp" />
     <ClCompile Include="FixedSplitterWnd.cpp" />
+    <ClCompile Include="Geometry.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="LogContentsView.cpp" />
     <ClCompile Include="LogFrame.cpp" />
     <ClCompile Include="LogTargetView.cpp" />
     <ClCompile Include="MainFrm.cpp" />
+    <ClCompile Include="Node.cpp" />
     <ClCompile Include="Plane.cpp" />
     <ClCompile Include="ScenarioSetupView.cpp" />
     <ClCompile Include="stdafx.cpp">

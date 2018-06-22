@@ -43,6 +43,9 @@
     <Filter Include="FrontEnd\3D Drawing Base\Drone">
       <UniqueIdentifier>{85c278a4-5fdb-45a8-94fc-60a693f50389}</UniqueIdentifier>
     </Filter>
+    <Filter Include="FrontEnd\3D Drawing Base\Scene Graph">
+      <UniqueIdentifier>{dd1a83dc-7271-4dbb-aaa5-3a5adabe7db6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -108,11 +111,17 @@
     <ClInclude Include="BasicIndex.h">
       <Filter>FrontEnd\3D Drawing Base</Filter>
     </ClInclude>
+    <ClInclude Include="Box.h">
+      <Filter>FrontEnd\3D Drawing Base\Basic Objects</Filter>
+    </ClInclude>
     <ClInclude Include="Drone.h">
       <Filter>FrontEnd\3D Drawing Base\Drone</Filter>
     </ClInclude>
-    <ClInclude Include="Box.h">
-      <Filter>FrontEnd\3D Drawing Base\Basic Objects</Filter>
+    <ClInclude Include="Node.h">
+      <Filter>FrontEnd\3D Drawing Base\Scene Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry.h">
+      <Filter>FrontEnd\3D Drawing Base\Scene Graph</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -164,11 +173,17 @@
     <ClCompile Include="Plane.cpp">
       <Filter>FrontEnd\3D Drawing Base\Basic Objects</Filter>
     </ClCompile>
+    <ClCompile Include="Box.cpp">
+      <Filter>FrontEnd\3D Drawing Base\Basic Objects</Filter>
+    </ClCompile>
     <ClCompile Include="Drone.cpp">
       <Filter>FrontEnd\3D Drawing Base\Drone</Filter>
     </ClCompile>
-    <ClCompile Include="Box.cpp">
-      <Filter>FrontEnd\3D Drawing Base\Basic Objects</Filter>
+    <ClCompile Include="Node.cpp">
+      <Filter>FrontEnd\3D Drawing Base\Scene Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="Geometry.cpp">
+      <Filter>FrontEnd\3D Drawing Base\Scene Graph</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

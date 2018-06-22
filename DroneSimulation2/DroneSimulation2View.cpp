@@ -38,7 +38,9 @@ CDroneSimulation2View::CDroneSimulation2View() :
 	camera(D3DXVECTOR3(1.f, 1.f, 1.f), 2.186276035f, 1.25f*D3DX_PI),
 	grid(64, 1),
 	plane(256, 0.25f),
-	left_clicked(false)
+	left_clicked(false),
+	drone_node(new DroneNode()),
+	world_root(new SceneNode())
 {
 	// TODO: 여기에 생성 코드를 추가합니다.
 	active_camera = &camera;
@@ -123,9 +125,12 @@ void CDroneSimulation2View::prepare()
 		return;
 	}
 
-	box.prepare(m_pDev);
 	grid.prepare(m_pDev);
 	plane.prepare(m_pDev);
+
+	world_root->register_render_state(D3DRS_SPECULARENABLE, TRUE);
+	world_root->register_child_node(drone_node);
+	drone_node->prepare(m_pDev);
 }
 
 void CDroneSimulation2View::process_input()
@@ -192,9 +197,8 @@ void CDroneSimulation2View::render_process()
 
 	m_pDev->SetLight(1, &main_light);
 	m_pDev->LightEnable(1, TRUE);
-	m_pDev->SetRenderState(D3DRS_SPECULARENABLE, TRUE);
+	world_root->render(m_pDev, NULL);
 	plane.render(m_pDev);
-	box.render(m_pDev);
 
 
 	grid.render(m_pDev);

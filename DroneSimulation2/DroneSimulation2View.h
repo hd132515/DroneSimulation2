@@ -9,7 +9,8 @@
 #include "Grid.h"
 #include "Camera.h"
 #include "Direct3DView.h"
-#include "Box.h"
+#include "Node.h"
+#include "Drone.h"
 
 class CDroneSimulation2View : public CDirect3DView
 {
@@ -20,7 +21,8 @@ private:
 	Grid grid;
 	Plane plane;
 	Axis axis;
-	Box box;
+	SceneNode* world_root;
+	DroneNode* drone_node;
 
 	bool left_clicked;
 	CPoint old_pt;

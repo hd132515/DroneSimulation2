@@ -70,8 +70,8 @@ int CDirect3DView::initialize_d3d()
 	ZeroMemory(&d3dpp, sizeof(D3DPRESENT_PARAMETERS));
 	d3dpp.BackBufferFormat = D3DFMT_A8R8G8B8;
 	d3dpp.BackBufferCount = 2;
-	d3dpp.BackBufferWidth = window_rect.right - window_rect.left;
-	d3dpp.BackBufferHeight = window_rect.bottom - window_rect.top;
+	/*d3dpp.BackBufferWidth = window_rect.right - window_rect.left;
+	d3dpp.BackBufferHeight = window_rect.bottom - window_rect.top;*/
 	d3dpp.EnableAutoDepthStencil = TRUE;
 	d3dpp.AutoDepthStencilFormat = D3DFMT_D24S8;
 	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;

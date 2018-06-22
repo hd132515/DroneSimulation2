@@ -1,18 +1,15 @@
 #pragma once
 
-#include <d3dx9.h>
+#include "Geometry.h"
 
-class Box
+class BoxGeometry : public Geometry
 {
 public:
-	Box();
-	~Box();
+	BoxGeometry(float x, float y, float z);
+	virtual ~BoxGeometry();
 private:
-	D3DMATERIAL9 material;
-	IDirect3DVertexBuffer9* pVB;
-protected:
+	float _x, _y, _z;
 public:
-	int prepare(IDirect3DDevice9* pDev);
-	int render(IDirect3DDevice9* pDev);
-	void release();
+	virtual int prepare(IDirect3DDevice9* pDev);
+	virtual int render(IDirect3DDevice9* pDev);
 };

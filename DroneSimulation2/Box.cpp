@@ -3,72 +3,75 @@
 #include "BasicVertex.h"
 
 
-Box::Box() : pVB(NULL)
+BoxGeometry::BoxGeometry(float x, float y, float z) : _x(x), _y(y), _z(z)
 {
 }
 
-Box::~Box()
+BoxGeometry::~BoxGeometry()
 {
-	release();
 }
 
-int Box::prepare(IDirect3DDevice9* pDev)
+int BoxGeometry::prepare(IDirect3DDevice9* pDev)
 {
+	float half_x = _x / 2.f;
+	float half_y = _y / 2.f;
+	float half_z = _z / 2.f;
+
 	ColoredNormalVertex source[] =
 	{
 		// 좌(xz)
-		{ D3DXVECTOR3(-0.5f,-0.5f, 0.5f), D3DXVECTOR3(0.f, -1.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
-		{ D3DXVECTOR3(0.5f,-0.5f, 0.5f), D3DXVECTOR3(0.f, -1.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
-		{ D3DXVECTOR3(-0.5f,-0.5f,-0.5f), D3DXVECTOR3(0.f, -1.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
+		{ D3DXVECTOR3(-half_x,-half_y, half_z), D3DXVECTOR3(0.f, -1.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
+		{ D3DXVECTOR3(half_x,-half_y, half_z), D3DXVECTOR3(0.f, -1.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
+		{ D3DXVECTOR3(-half_x,-half_y,-half_z), D3DXVECTOR3(0.f, -1.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
 
-		{ D3DXVECTOR3(-0.5f,-0.5f, -0.5f), D3DXVECTOR3(0.f, -1.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
-		{ D3DXVECTOR3(0.5f,-0.5f, 0.5f), D3DXVECTOR3(0.f, -1.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
-		{ D3DXVECTOR3(0.5f, -0.5f, -0.5f), D3DXVECTOR3(0.f, -1.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
+		{ D3DXVECTOR3(-half_x,-half_y, -half_z), D3DXVECTOR3(0.f, -1.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
+		{ D3DXVECTOR3(half_x,-half_y, half_z), D3DXVECTOR3(0.f, -1.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
+		{ D3DXVECTOR3(half_x, -half_y, -half_z), D3DXVECTOR3(0.f, -1.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
 
 		// 우(xz)
-		{ D3DXVECTOR3(0.5f,0.5f, 0.5f), D3DXVECTOR3(0.f, 1.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
-		{ D3DXVECTOR3(-0.5f,0.5f, 0.5f), D3DXVECTOR3(0.f, 1.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
-		{ D3DXVECTOR3(-0.5f,0.5f,-0.5f), D3DXVECTOR3(0.f, 1.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
+		{ D3DXVECTOR3(half_x,half_y, half_z), D3DXVECTOR3(0.f, 1.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
+		{ D3DXVECTOR3(-half_x,half_y, half_z), D3DXVECTOR3(0.f, 1.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
+		{ D3DXVECTOR3(-half_x,half_y,-half_z), D3DXVECTOR3(0.f, 1.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
 
-		{ D3DXVECTOR3(0.5f,0.5f, 0.5f), D3DXVECTOR3(0.f, 1.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
-		{ D3DXVECTOR3(-0.5f,0.5f, -0.5f), D3DXVECTOR3(0.f, 1.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
-		{ D3DXVECTOR3(0.5f, 0.5f, -0.5f), D3DXVECTOR3(0.f, 1.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
+		{ D3DXVECTOR3(half_x,half_y, half_z), D3DXVECTOR3(0.f, 1.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
+		{ D3DXVECTOR3(-half_x,half_y, -half_z), D3DXVECTOR3(0.f, 1.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
+		{ D3DXVECTOR3(half_x, half_y, -half_z), D3DXVECTOR3(0.f, 1.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
 
 		// 뒤(yz)
-		{ D3DXVECTOR3(-0.5f, 0.5f, 0.5f), D3DXVECTOR3(-1.f, 0.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
-		{ D3DXVECTOR3(-0.5f,-0.5f, 0.5f), D3DXVECTOR3(-1.f, 0.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
-		{ D3DXVECTOR3(-0.5f,-0.5f,-0.5f), D3DXVECTOR3(-1.f, 0.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
+		{ D3DXVECTOR3(-half_x, half_y, half_z), D3DXVECTOR3(-1.f, 0.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
+		{ D3DXVECTOR3(-half_x,-half_y, half_z), D3DXVECTOR3(-1.f, 0.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
+		{ D3DXVECTOR3(-half_x,-half_y,-half_z), D3DXVECTOR3(-1.f, 0.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
 
-		{ D3DXVECTOR3(-0.5f, 0.5f, 0.5f), D3DXVECTOR3(-1.f, 0.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
-		{ D3DXVECTOR3(-0.5f,-0.5f,-0.5f), D3DXVECTOR3(-1.f, 0.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
-		{ D3DXVECTOR3(-0.5f, 0.5f,-0.5f), D3DXVECTOR3(-1.f, 0.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
+		{ D3DXVECTOR3(-half_x, half_y, half_z), D3DXVECTOR3(-1.f, 0.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
+		{ D3DXVECTOR3(-half_x,-half_y,-half_z), D3DXVECTOR3(-1.f, 0.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
+		{ D3DXVECTOR3(-half_x, half_y,-half_z), D3DXVECTOR3(-1.f, 0.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
 
 		// 앞(yz)
-		{ D3DXVECTOR3(0.5f,-0.5f, 0.5f), D3DXVECTOR3(1.f, 0.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
-		{ D3DXVECTOR3(0.5f, 0.5f, 0.5f), D3DXVECTOR3(1.f, 0.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
-		{ D3DXVECTOR3(0.5f,-0.5f,-0.5f), D3DXVECTOR3(1.f, 0.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
+		{ D3DXVECTOR3(half_x,-half_y, half_z), D3DXVECTOR3(1.f, 0.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
+		{ D3DXVECTOR3(half_x, half_y, half_z), D3DXVECTOR3(1.f, 0.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
+		{ D3DXVECTOR3(half_x,-half_y,-half_z), D3DXVECTOR3(1.f, 0.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
 
-		{ D3DXVECTOR3(0.5f,-0.5f,-0.5f), D3DXVECTOR3(1.f, 0.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
-		{ D3DXVECTOR3(0.5f, 0.5f, 0.5f), D3DXVECTOR3(1.f, 0.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
-		{ D3DXVECTOR3(0.5f, 0.5f,-0.5f), D3DXVECTOR3(1.f, 0.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
+		{ D3DXVECTOR3(half_x,-half_y,-half_z), D3DXVECTOR3(1.f, 0.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
+		{ D3DXVECTOR3(half_x, half_y, half_z), D3DXVECTOR3(1.f, 0.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
+		{ D3DXVECTOR3(half_x, half_y,-half_z), D3DXVECTOR3(1.f, 0.f, 0.f), D3DCOLOR_XRGB(0, 0, 0) },
 
 		// 상(xy)
-		{ D3DXVECTOR3( 0.5f, 0.5f, 0.5f), D3DXVECTOR3(0.f, 0.f, 1.f), D3DCOLOR_XRGB(0, 0, 0) },
-		{ D3DXVECTOR3(-0.5f,-0.5f, 0.5f), D3DXVECTOR3(0.f, 0.f, 1.f), D3DCOLOR_XRGB(0, 0, 0) },
-		{ D3DXVECTOR3(-0.5f, 0.5f, 0.5f), D3DXVECTOR3(0.f, 0.f, 1.f), D3DCOLOR_XRGB(0, 0, 0) },
+		{ D3DXVECTOR3(half_x, half_y, half_z), D3DXVECTOR3(0.f, 0.f, 1.f), D3DCOLOR_XRGB(0, 0, 0) },
+		{ D3DXVECTOR3(-half_x,-half_y, half_z), D3DXVECTOR3(0.f, 0.f, 1.f), D3DCOLOR_XRGB(0, 0, 0) },
+		{ D3DXVECTOR3(-half_x, half_y, half_z), D3DXVECTOR3(0.f, 0.f, 1.f), D3DCOLOR_XRGB(0, 0, 0) },
 
-		{ D3DXVECTOR3( 0.5f, 0.5f, 0.5f), D3DXVECTOR3(0.f, 0.f, 1.f), D3DCOLOR_XRGB(0, 0, 0) },
-		{ D3DXVECTOR3( 0.5f,-0.5f, 0.5f), D3DXVECTOR3(0.f, 0.f, 1.f), D3DCOLOR_XRGB(0, 0, 0) },
-		{ D3DXVECTOR3(-0.5f,-0.5f, 0.5f), D3DXVECTOR3(0.f, 0.f, 1.f), D3DCOLOR_XRGB(0, 0, 0) },
+		{ D3DXVECTOR3(half_x, half_y, half_z), D3DXVECTOR3(0.f, 0.f, 1.f), D3DCOLOR_XRGB(0, 0, 0) },
+		{ D3DXVECTOR3(half_x,-half_y, half_z), D3DXVECTOR3(0.f, 0.f, 1.f), D3DCOLOR_XRGB(0, 0, 0) },
+		{ D3DXVECTOR3(-half_x,-half_y, half_z), D3DXVECTOR3(0.f, 0.f, 1.f), D3DCOLOR_XRGB(0, 0, 0) },
 
 		// 하(xy)
-		{ D3DXVECTOR3(-0.5f,-0.5f, -0.5f), D3DXVECTOR3(0.f, 0.f, -1.f), D3DCOLOR_XRGB(0, 0, 0) },
-		{ D3DXVECTOR3(0.5f, 0.5f, -0.5f), D3DXVECTOR3(0.f, 0.f, -1.f), D3DCOLOR_XRGB(0, 0, 0) },
-		{ D3DXVECTOR3(-0.5f, 0.5f, -0.5f), D3DXVECTOR3(0.f, 0.f, -1.f), D3DCOLOR_XRGB(0, 0, 0) },
+		{ D3DXVECTOR3(-half_x,-half_y, -half_z), D3DXVECTOR3(0.f, 0.f, -1.f), D3DCOLOR_XRGB(0, 0, 0) },
+		{ D3DXVECTOR3(half_x, half_y, -half_z), D3DXVECTOR3(0.f, 0.f, -1.f), D3DCOLOR_XRGB(0, 0, 0) },
+		{ D3DXVECTOR3(-half_x, half_y, -half_z), D3DXVECTOR3(0.f, 0.f, -1.f), D3DCOLOR_XRGB(0, 0, 0) },
 
-		{ D3DXVECTOR3(0.5f,-0.5f, -0.5f), D3DXVECTOR3(0.f, 0.f, -1.f), D3DCOLOR_XRGB(0, 0, 0) },
-		{ D3DXVECTOR3(0.5f, 0.5f, -0.5f), D3DXVECTOR3(0.f, 0.f, -1.f), D3DCOLOR_XRGB(0, 0, 0) },
-		{ D3DXVECTOR3(-0.5f,-0.5f, -0.5f), D3DXVECTOR3(0.f, 0.f, -1.f), D3DCOLOR_XRGB(0, 0, 0) },
+		{ D3DXVECTOR3(half_x,-half_y, -half_z), D3DXVECTOR3(0.f, 0.f, -1.f), D3DCOLOR_XRGB(0, 0, 0) },
+		{ D3DXVECTOR3(half_x, half_y, -half_z), D3DXVECTOR3(0.f, 0.f, -1.f), D3DCOLOR_XRGB(0, 0, 0) },
+		{ D3DXVECTOR3(-half_x,-half_y, -half_z), D3DXVECTOR3(0.f, 0.f, -1.f), D3DCOLOR_XRGB(0, 0, 0) },
 
 	};
 
@@ -76,12 +79,14 @@ int Box::prepare(IDirect3DDevice9* pDev)
 
 	if (FAILED(pDev->CreateVertexBuffer(vert_space_sz, 0, D3DFVF_CNVERT, D3DPOOL_MANAGED, &pVB, NULL)))
 	{
+		AfxMessageBox(L"[ERROR] Box.cpp : Box::prepare() : CreateVB");
 		return -1;
 	}
 
 	ColoredNormalVertex* vertices;
 	if (FAILED(pVB->Lock(0, vert_space_sz, (void**)&vertices, 0)))
 	{
+		AfxMessageBox(L"[ERROR] Box.cpp : Box::prepare() : LockVB");
 		return -2;
 	}
 
@@ -89,33 +94,14 @@ int Box::prepare(IDirect3DDevice9* pDev)
 
 	pVB->Unlock();
 
-	ZeroMemory(&material, sizeof(D3DMATERIAL9));
-	material.Ambient.a = 1.f;
-	material.Ambient.r = material.Ambient.g = material.Ambient.b = 0.1f;
-	material.Specular.a = material.Specular.r = material.Specular.g = material.Specular.b = 0.3f;
-	material.Power = 10.f;
-
 	return 0;
 }
 
-int Box::render(IDirect3DDevice9* pDev)
+int BoxGeometry::render(IDirect3DDevice9* pDev)
 {
-	pDev->SetRenderState(D3DRS_LIGHTING, TRUE);
-	pDev->SetRenderState(D3DRS_SPECULARMATERIALSOURCE, D3DMCS_MATERIAL);
-
-	pDev->SetMaterial(&material);
 	pDev->SetStreamSource(0, pVB, 0, sizeof(ColoredNormalVertex));
 	pDev->SetFVF(D3DFVF_CNVERT);
 
 	pDev->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 6 * 2);
 	return 0;
-}
-
-void Box::release()
-{
-	if (pVB != NULL)
-	{
-		pVB->Release();
-		pVB = NULL;
-	}
 }
