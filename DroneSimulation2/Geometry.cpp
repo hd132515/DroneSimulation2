@@ -7,6 +7,7 @@ Geometry::Geometry() : pVB(NULL), pIB(NULL)
 
 Geometry::~Geometry()
 {
+	release();
 }
 
 void Geometry::release()

@@ -6,7 +6,7 @@ class Geometry
 {
 public:
 	Geometry();
-	~Geometry();
+	virtual ~Geometry();
 private:
 protected:
 	IDirect3DVertexBuffer9* pVB;

@@ -18,8 +18,8 @@ private:
 	D3DLIGHT9 main_light;
 	FirstPersonCam camera;
 	BasicCamera* active_camera;
-	Grid grid;
-	Plane plane;
+	Grid* grid;
+	Plane* plane;
 	Axis axis;
 	SceneNode* world_root;
 	DroneNode* drone_node;
@@ -61,6 +61,7 @@ protected:
 public:
 	virtual void OnInitialUpdate();
 	virtual void OnDraw(CDC* /*pDC*/);
+	virtual void PostNcDestroy();
 };
 
 #ifndef _DEBUG  // DroneSimulation2View.cpp의 디버그 버전

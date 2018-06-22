@@ -6,7 +6,7 @@ class DroneNode : public SceneNode
 {
 public:
 	DroneNode();
-	~DroneNode();
+	virtual ~DroneNode();
 
 public:
 	int prepare(IDirect3DDevice9* pDev);

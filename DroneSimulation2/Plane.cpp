@@ -3,16 +3,15 @@
 #include "BasicVertex.h"
 #include "BasicIndex.h"
 
-Plane::Plane(int _cell, float _unit) : cell(_cell), unit(_unit)
+PlaneGeometry::PlaneGeometry(int _cell, float _unit) : cell(_cell), unit(_unit)
 {
 }
 
-Plane::~Plane()
+PlaneGeometry::~PlaneGeometry()
 {
-	release();
 }
 
-int Plane::prepare(IDirect3DDevice9* pDev)
+int PlaneGeometry::prepare(IDirect3DDevice9* pDev)
 {
 	int row_vert = cell + 1;
 	int vert_space_sz = sizeof(ColoredNormalVertex) * row_vert * row_vert;
@@ -80,22 +79,12 @@ int Plane::prepare(IDirect3DDevice9* pDev)
 
 	pIB->Unlock();
 
-	ZeroMemory(&material, sizeof(D3DMATERIAL9));
-	material.Ambient.a = 1.f;
-	material.Ambient.r = material.Ambient.g = material.Ambient.b = 0.9f;
-	material.Specular.a = material.Specular.r = material.Specular.g = material.Specular.b = 0.13f;
-	material.Power = 0.8f;
 
 	return 0;
 }
 
-int Plane::render(IDirect3DDevice9* pDev)
+int PlaneGeometry::render(IDirect3DDevice9* pDev)
 {
-	pDev->SetRenderState(D3DRS_LIGHTING, TRUE);
-	pDev->SetRenderState(D3DRS_SPECULARMATERIALSOURCE, D3DMCS_MATERIAL);
-
-	pDev->SetMaterial(&material);
-
 	pDev->SetStreamSource(0, pVB, 0, sizeof(ColoredNormalVertex));
 	pDev->SetIndices(pIB);
 	pDev->SetFVF(D3DFVF_CNVERT);
@@ -104,17 +93,33 @@ int Plane::render(IDirect3DDevice9* pDev)
 	return 0;
 }
 
-void Plane::release()
+Plane::Plane()
 {
-	if (pVB != NULL)
-	{
-		pVB->Release();
-		pVB = NULL;
-	}
+}
 
-	if (pIB != NULL)
-	{
-		pIB->Release();
-		pIB = NULL;
-	}
+Plane::~Plane()
+{
+}
+
+int Plane::prepare(IDirect3DDevice9* pDev)
+{
+	material.Ambient.a = 1.f;
+	material.Ambient.r = material.Ambient.g = material.Ambient.b = 0.9f;
+	material.Specular.a = material.Specular.r = material.Specular.g = material.Specular.b = 0.13f;
+	material.Power = 0.8f;
+
+	register_render_state(D3DRS_LIGHTING, TRUE);
+	register_render_state(D3DRS_SPECULARMATERIALSOURCE, D3DMCS_MATERIAL);
+
+
+	PlaneGeometry* geometry = new PlaneGeometry(256, 0.25f);
+	geometry->prepare(pDev);
+
+	register_geometry(geometry);
+
+	D3DXMATRIX transform;
+	D3DXMatrixIdentity(&transform);
+	register_transform(transform);
+
+	return 0;
 }

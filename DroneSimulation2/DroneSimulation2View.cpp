@@ -36,9 +36,9 @@ END_MESSAGE_MAP()
 
 CDroneSimulation2View::CDroneSimulation2View() :
 	camera(D3DXVECTOR3(1.f, 1.f, 1.f), 2.186276035f, 1.25f*D3DX_PI),
-	grid(64, 1),
-	plane(256, 0.25f),
 	left_clicked(false),
+	grid(new Grid()),
+	plane(new Plane()),
 	drone_node(new DroneNode()),
 	world_root(new SceneNode())
 {
@@ -48,7 +48,6 @@ CDroneSimulation2View::CDroneSimulation2View() :
 
 CDroneSimulation2View::~CDroneSimulation2View()
 {
-
 }
 
 BOOL CDroneSimulation2View::PreCreateWindow(CREATESTRUCT& cs)
@@ -125,12 +124,14 @@ void CDroneSimulation2View::prepare()
 		return;
 	}
 
-	grid.prepare(m_pDev);
-	plane.prepare(m_pDev);
+	grid->prepare(m_pDev);
+	drone_node->prepare(m_pDev);
+	plane->prepare(m_pDev);
 
 	world_root->register_render_state(D3DRS_SPECULARENABLE, TRUE);
 	world_root->register_child_node(drone_node);
-	drone_node->prepare(m_pDev);
+	world_root->register_child_node(grid);
+	world_root->register_child_node(plane);
 }
 
 void CDroneSimulation2View::process_input()
@@ -198,13 +199,19 @@ void CDroneSimulation2View::render_process()
 	m_pDev->SetLight(1, &main_light);
 	m_pDev->LightEnable(1, TRUE);
 	world_root->render(m_pDev, NULL);
-	plane.render(m_pDev);
 
-
-	grid.render(m_pDev);
 	axis.render(m_pDev);
 
 	//multi cam
 	
 	//2D area
+}
+
+
+void CDroneSimulation2View::PostNcDestroy()
+{
+	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
+	delete world_root;
+
+	CDirect3DView::PostNcDestroy();
 }

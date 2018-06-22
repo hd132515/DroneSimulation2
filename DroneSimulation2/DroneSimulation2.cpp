@@ -72,7 +72,6 @@ BOOL CDroneSimulation2App::InitInstance()
 
 	CWinApp::InitInstance();
 
-
 	// OLE 라이브러리를 초기화합니다.
 	if (!AfxOleInit())
 	{

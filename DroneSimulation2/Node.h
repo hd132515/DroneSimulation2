@@ -1,22 +1,25 @@
 #pragma once
 
 #include <d3dx9.h>
-#include <vector>
+#include <unordered_map>
 #include "Geometry.h"
 
 class SceneNode
 {
 public:
 	SceneNode();
-	~SceneNode();
+	virtual ~SceneNode();
 protected:
-	bool material_using;
 	D3DXMATRIX parent_trans;
 	D3DXMATRIX transform;
-	Geometry* geometry;
-	std::vector<std::pair<D3DRENDERSTATETYPE, DWORD>> parent_state;
-	std::vector<std::pair<D3DRENDERSTATETYPE, DWORD>> render_state;
+
+	std::unordered_map<D3DRENDERSTATETYPE, DWORD> parent_state;
+	std::unordered_map<D3DRENDERSTATETYPE, DWORD> render_state;
+
 	std::vector<SceneNode*> child_nodes;
+	Geometry* geometry;
+
+	D3DMATERIAL9 parent_material;
 public:
 	D3DMATERIAL9 material;
 

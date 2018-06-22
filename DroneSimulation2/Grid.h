@@ -1,19 +1,28 @@
 #pragma once
 
-#include <d3dx9.h>
+#include "Node.h"
 #include "BasicVertex.h"
 
-class Grid
+class GridGeometry : public Geometry
 {
 public:
-	Grid(int _size, int _unit);
-	~Grid();
+	GridGeometry(int _size, int _unit);
+	~GridGeometry();
 private:
 	int size, unit;
-	IDirect3DVertexBuffer9* pVB;
+protected:
+public:
+	virtual int prepare(IDirect3DDevice9* pDev);
+	virtual int render(IDirect3DDevice9* pDev);
+};
+
+class Grid : public SceneNode
+{
+public:
+	Grid();
+	virtual ~Grid();
+private:
 protected:
 public:
 	int prepare(IDirect3DDevice9* pDev);
-	int render(IDirect3DDevice9* pDev);
-	void release();
 };

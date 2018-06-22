@@ -1,22 +1,26 @@
 #pragma once
 
-#include <d3dx9.h>
+#include "Node.h"
 
-class Plane
+class PlaneGeometry : public Geometry
 {
 public:
-	Plane(int _cell, float _unit);
-	~Plane();
+	PlaneGeometry(int _cell, float _unit);
+	~PlaneGeometry();
 private:
 	int cell;
 	float unit;
-	IDirect3DVertexBuffer9* pVB;
-	IDirect3DIndexBuffer9* pIB;
-
-	D3DMATERIAL9 material;
 protected:
 public:
 	int prepare(IDirect3DDevice9* pDev);
 	int render(IDirect3DDevice9* pDev);
-	void release();
+};
+
+class Plane : public SceneNode
+{
+public:
+	Plane();
+	virtual ~Plane();
+public:
+	int prepare(IDirect3DDevice9* pDev);
 };

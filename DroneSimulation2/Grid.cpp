@@ -1,16 +1,16 @@
 #include "stdafx.h"
 #include "Grid.h"
 
-Grid::Grid(int _size, int _unit) : size(_size), unit(_unit)
+GridGeometry::GridGeometry(int _size, int _unit) : size(_size), unit(_unit)
 {
 }
 
-Grid::~Grid()
+GridGeometry::~GridGeometry()
 {
 	release();
 }
 
-int Grid::prepare(IDirect3DDevice9* pDev)
+int GridGeometry::prepare(IDirect3DDevice9* pDev)
 {
 	int cells = size;
 	int lines = size + 1;
@@ -54,14 +54,8 @@ int Grid::prepare(IDirect3DDevice9* pDev)
 	return 0;
 }
 
-int Grid::render(IDirect3DDevice9* pDev)
+int GridGeometry::render(IDirect3DDevice9* pDev)
 {
-	pDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
-	pDev->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);
-	pDev->SetRenderState(D3DRS_SPECULARMATERIALSOURCE, D3DMCS_COLOR1);
-	pDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
-	pDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
-	pDev->SetRenderState(D3DRS_LIGHTING, FALSE);
 	pDev->SetStreamSource(0, pVB, 0, sizeof(ColoredVertex));
 	pDev->SetFVF(D3DFVF_COLOREDVERT);
 	if (FAILED(pDev->DrawPrimitive(D3DPT_LINELIST, 0, 2*(size+1))))
@@ -72,11 +66,34 @@ int Grid::render(IDirect3DDevice9* pDev)
 	return 0;
 }
 
-void Grid::release()
+
+
+
+Grid::Grid()
 {
-	if (pVB != NULL)
-	{
-		pVB->Release();
-		pVB = NULL;
-	}
+}
+
+Grid::~Grid()
+{
+}
+
+int Grid::prepare(IDirect3DDevice9* pDev)
+{
+	register_render_state(D3DRS_ALPHABLENDENABLE, TRUE);
+	register_render_state(D3DRS_BLENDOP, D3DBLENDOP_ADD);
+	register_render_state(D3DRS_SPECULARMATERIALSOURCE, D3DMCS_COLOR1);
+	register_render_state(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	register_render_state(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+	register_render_state(D3DRS_LIGHTING, FALSE);
+
+	GridGeometry* grid = new GridGeometry(64, 1);
+	grid->prepare(pDev);
+
+	register_geometry(grid);
+
+	D3DXMATRIX transform;
+	D3DXMatrixIdentity(&transform);
+	register_transform(transform);
+
+	return 0;
 }

@@ -3,7 +3,7 @@
 
 SceneNode::SceneNode() : geometry(NULL)
 {
-	ZeroMemory(&material, sizeof(D3DXMATERIAL));
+	ZeroMemory(&material, sizeof(D3DMATERIAL9));
 	D3DXMatrixIdentity(&transform);
 }
 
@@ -22,7 +22,7 @@ void SceneNode::register_child_node(SceneNode* child_node)
 
 void SceneNode::register_render_state(D3DRENDERSTATETYPE rs_type, DWORD value)
 {
-	render_state.emplace_back(rs_type, value);
+	render_state[rs_type] = value;
 }
 
 void SceneNode::register_transform(D3DXMATRIX& _transform)
@@ -45,6 +45,7 @@ void SceneNode::setup_node(IDirect3DDevice9* pDev, D3DXMATRIX* parent_transform)
 
 	pDev->SetTransform(D3DTS_WORLD, &applied);
 
+	pDev->GetMaterial(&parent_material);
 	pDev->SetMaterial(&material);
 
 	for (auto elem : render_state)
@@ -52,7 +53,7 @@ void SceneNode::setup_node(IDirect3DDevice9* pDev, D3DXMATRIX* parent_transform)
 		DWORD parent;
 
 		pDev->GetRenderState(elem.first, &parent);
-		parent_state.emplace_back(elem.first, parent);
+		parent_state[elem.first] = parent;
 
 		pDev->SetRenderState(elem.first, elem.second);
 	}
@@ -61,6 +62,8 @@ void SceneNode::setup_node(IDirect3DDevice9* pDev, D3DXMATRIX* parent_transform)
 void SceneNode::rollback_node(IDirect3DDevice9* pDev)
 {
 	pDev->SetTransform(D3DTS_WORLD, &parent_trans);
+
+	pDev->SetMaterial(&parent_material);
 
 	for (auto elem : parent_state)
 	{
