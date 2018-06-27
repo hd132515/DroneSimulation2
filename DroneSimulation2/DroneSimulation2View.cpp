@@ -12,6 +12,7 @@
 #include "DroneSimulation2Doc.h"
 #include "DroneSimulation2View.h"
 #include <typeinfo>
+#include "PhysicsThread.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -30,6 +31,7 @@ BEGIN_MESSAGE_MAP(CDroneSimulation2View, CView)
 	ON_WM_MOUSEMOVE()
 	ON_WM_LBUTTONDOWN()
 	ON_WM_LBUTTONUP()
+	ON_WM_PAINT()
 END_MESSAGE_MAP()
 
 // CDroneSimulation2View 생성/소멸
@@ -39,7 +41,7 @@ CDroneSimulation2View::CDroneSimulation2View() :
 	left_clicked(false),
 	grid(new Grid()),
 	plane(new Plane()),
-	drone_node(new DroneNode()),
+	drone(),
 	world_root(new SceneNode())
 {
 	// TODO: 여기에 생성 코드를 추가합니다.
@@ -125,71 +127,88 @@ void CDroneSimulation2View::prepare()
 	}
 
 	grid->prepare(m_pDev);
-	drone_node->prepare(m_pDev);
 	plane->prepare(m_pDev);
 
+	drone.prepare(m_pDev, world_root);
+
 	world_root->register_render_state(D3DRS_SPECULARENABLE, TRUE);
-	world_root->register_child_node(drone_node);
 	world_root->register_child_node(grid);
 	world_root->register_child_node(plane);
 }
 
 void CDroneSimulation2View::process_input()
 {
-	int move_type = 0;
-	if (GetAsyncKeyState('W'))
-	{
-		move_type |= (int)MoveType::FORWARD;
-	}
-	if (GetAsyncKeyState('A'))
-	{
-		move_type |= (int)MoveType::LEFTWARD;
-	}
-	if (GetAsyncKeyState('S'))
-	{
-		move_type |= (int)MoveType::BACKWARD;
-	}
-	if (GetAsyncKeyState('D'))
-	{
-		move_type |= (int)MoveType::RIGHTWARD;
-	}
+	POINT pos;
+	GetCursorPos(&pos);
+	ScreenToClient(&pos);
+	RECT rect;
+	GetWindowRect(&rect);
 
-	if (move_type)
+	if (PtInRect(&rect, pos))
 	{
-		if (typeid(*active_camera) == typeid(FirstPersonCam))
+		int move_type = 0;
+		if (GetAsyncKeyState('W'))
 		{
-			((FirstPersonCam*)active_camera)->move(move_type);
+			move_type |= (int)MoveType::FORWARD;
 		}
-	}
-
-	if (GetAsyncKeyState(VK_LBUTTON) >> 16)
-	{
-		CPoint point;
-		GetCursorPos(&point);
-
-		if (!left_clicked)
+		if (GetAsyncKeyState('A'))
 		{
-			left_clicked = true;
-			old_pt = point;
+			move_type |= (int)MoveType::LEFTWARD;
 		}
-		else
+		if (GetAsyncKeyState('S'))
 		{
-			CPoint displ = point - old_pt;
+			move_type |= (int)MoveType::BACKWARD;
+		}
+		if (GetAsyncKeyState('D'))
+		{
+			move_type |= (int)MoveType::RIGHTWARD;
+		}
 
+		if (move_type)
+		{
 			if (typeid(*active_camera) == typeid(FirstPersonCam))
 			{
-				((FirstPersonCam*)active_camera)->change_direction(displ.y, -displ.x);
+				((FirstPersonCam*)active_camera)->move(move_type);
 			}
-
-			old_pt = point;
 		}
+
+		if (GetAsyncKeyState(VK_LBUTTON) >> 16)
+		{
+			CPoint point;
+			GetCursorPos(&point);
+
+			if (!left_clicked)
+			{
+				left_clicked = true;
+				old_pt = point;
+			}
+			else
+			{
+				CPoint displ = point - old_pt;
+
+				if (typeid(*active_camera) == typeid(FirstPersonCam))
+				{
+					((FirstPersonCam*)active_camera)->change_direction(displ.y, -displ.x);
+				}
+
+				old_pt = point;
+			}
+		}
+		else
+			left_clicked = false;
 	}
-	else
-		left_clicked = false;
 }
 
 void CDroneSimulation2View::render_process()
 {
+	if (PhysicsThread::get_instance().is_physics_enabled())
+	{
+		PhysicsThread::get_instance().notice_render();
+		drone.update();
+		PhysicsThread::get_instance().end_render();
+	}
+
+
 	//3D area
 	//m_pDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 	m_pDev->SetTransform(D3DTS_PROJECTION, &projection);
@@ -202,8 +221,9 @@ void CDroneSimulation2View::render_process()
 
 	axis.render(m_pDev);
 
+
 	//multi cam
-	
+
 	//2D area
 }
 
@@ -211,7 +231,17 @@ void CDroneSimulation2View::render_process()
 void CDroneSimulation2View::PostNcDestroy()
 {
 	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
+	PhysicsThread::get_instance().stop();
 	delete world_root;
 
 	CDirect3DView::PostNcDestroy();
+}
+
+
+void CDroneSimulation2View::OnPaint()
+{
+	CPaintDC dc(this); // device context for painting
+					   // TODO: 여기에 메시지 처리기 코드를 추가합니다.
+					   // 그리기 메시지에 대해서는 CDirect3DView::OnPaint()을(를) 호출하지 마십시오.
+	render();
 }

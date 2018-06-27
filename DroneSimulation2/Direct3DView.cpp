@@ -75,6 +75,7 @@ int CDirect3DView::initialize_d3d()
 	d3dpp.EnableAutoDepthStencil = TRUE;
 	d3dpp.AutoDepthStencilFormat = D3DFMT_D24S8;
 	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
+	//d3dpp.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE;
 	d3dpp.Windowed = TRUE;
 
 	if (FAILED(g_pDirect3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, target_window_handle, D3DCREATE_HARDWARE_VERTEXPROCESSING, &d3dpp, &m_pDev)))
@@ -99,7 +100,7 @@ void CDirect3DView::process_input()
 {
 }
 
-void CDirect3DView::pre_render()
+void CDirect3DView::render()
 {
 	if (m_pDev == NULL)
 	{
@@ -108,19 +109,19 @@ void CDirect3DView::pre_render()
 	}
 
 	m_pDev->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(200, 200, 200), 1.f, 1);
-	
+
 	m_pDev->BeginScene();
+
+	render_process();
+
+
+	m_pDev->EndScene();
+
+	m_pDev->Present(NULL, NULL, NULL, NULL);
 }
 
 void CDirect3DView::render_process()
 {
-}
-
-void CDirect3DView::post_render()
-{
-	m_pDev->EndScene();
-
-	m_pDev->Present(NULL, NULL, NULL, NULL);
 }
 
 void CDirect3DView::release_all()

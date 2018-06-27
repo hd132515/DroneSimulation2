@@ -200,18 +200,25 @@
     <ClInclude Include="DroneSimulation2Doc.h" />
     <ClInclude Include="DroneSimulation2View.h" />
     <ClInclude Include="FixedSplitterWnd.h" />
+    <ClInclude Include="GeneralObject.h" />
     <ClInclude Include="Geometry.h" />
     <ClInclude Include="LogContentsView.h" />
     <ClInclude Include="LogFrame.h" />
     <ClInclude Include="LogTargetView.h" />
     <ClInclude Include="MainFrm.h" />
-    <ClInclude Include="Node.h" />
+    <ClInclude Include="Matrix.h" />
+    <ClInclude Include="SceneNode.h" />
+    <ClInclude Include="PhysicsThread.h" />
     <ClInclude Include="Plane.h" />
+    <ClInclude Include="Quaternion.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="Body.h" />
     <ClInclude Include="ScenarioSetupView.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Grid.h" />
+    <ClInclude Include="utility.h" />
+    <ClInclude Include="Vector.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Axis.cpp" />
@@ -224,14 +231,19 @@
     <ClCompile Include="DroneSimulation2Doc.cpp" />
     <ClCompile Include="DroneSimulation2View.cpp" />
     <ClCompile Include="FixedSplitterWnd.cpp" />
+    <ClCompile Include="GeneralObject.cpp" />
     <ClCompile Include="Geometry.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="LogContentsView.cpp" />
     <ClCompile Include="LogFrame.cpp" />
     <ClCompile Include="LogTargetView.cpp" />
     <ClCompile Include="MainFrm.cpp" />
-    <ClCompile Include="Node.cpp" />
+    <ClCompile Include="Matrix.cpp" />
+    <ClCompile Include="SceneNode.cpp" />
+    <ClCompile Include="PhysicsThread.cpp" />
     <ClCompile Include="Plane.cpp" />
+    <ClCompile Include="Quaternion.cpp" />
+    <ClCompile Include="Body.cpp" />
     <ClCompile Include="ScenarioSetupView.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -239,6 +251,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="utility.cpp" />
+    <ClCompile Include="Vector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DroneSimulation2.reg" />

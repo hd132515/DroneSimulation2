@@ -1,10 +1,10 @@
 #include "stdafx.h"
-#include "Node.h"
+#include "SceneNode.h"
 
 SceneNode::SceneNode() : geometry(NULL)
 {
 	ZeroMemory(&material, sizeof(D3DMATERIAL9));
-	D3DXMatrixIdentity(&transform);
+	D3DXMatrixIdentity(&rigid_transform);
 }
 
 SceneNode::~SceneNode()
@@ -27,7 +27,7 @@ void SceneNode::register_render_state(D3DRENDERSTATETYPE rs_type, DWORD value)
 
 void SceneNode::register_transform(D3DXMATRIX& _transform)
 {
-	transform = _transform;
+	rigid_transform = _transform;
 }
 
 void SceneNode::register_geometry(Geometry* _geometry)
@@ -37,13 +37,12 @@ void SceneNode::register_geometry(Geometry* _geometry)
 
 void SceneNode::setup_node(IDirect3DDevice9* pDev, D3DXMATRIX* parent_transform)
 {
-	pDev->GetTransform(D3DTS_WORLD, &parent_trans);
-
-	D3DXMATRIX applied = transform;
+	applied = rigid_transform;
 	if (parent_transform != NULL)
 		applied *= *parent_transform;
 
-	pDev->SetTransform(D3DTS_WORLD, &applied);
+	if(geometry != NULL)
+		pDev->SetTransform(D3DTS_WORLD, &applied);
 
 	pDev->GetMaterial(&parent_material);
 	pDev->SetMaterial(&material);
@@ -61,8 +60,6 @@ void SceneNode::setup_node(IDirect3DDevice9* pDev, D3DXMATRIX* parent_transform)
 
 void SceneNode::rollback_node(IDirect3DDevice9* pDev)
 {
-	pDev->SetTransform(D3DTS_WORLD, &parent_trans);
-
 	pDev->SetMaterial(&parent_material);
 
 	for (auto elem : parent_state)
@@ -80,7 +77,7 @@ int SceneNode::render(IDirect3DDevice9* pDev, D3DXMATRIX* parent_transform)
 
 	for (auto child : child_nodes)
 	{
-		child->render(pDev, &transform);
+		child->render(pDev, &applied);
 	}
 
 	rollback_node(pDev);

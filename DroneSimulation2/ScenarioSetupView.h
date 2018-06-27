@@ -1,4 +1,5 @@
 #pragma once
+#include "afxwin.h"
 
 
 
@@ -29,6 +30,22 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	virtual void OnInitialUpdate();
+	afx_msg void OnBnClickedStartBtn();
+	afx_msg void OnBnClickedStopBtn();
+	float pos_x;
+	float pos_y;
+	float pos_z;
+	float vel_x;
+	float vel_y;
+	float vel_z;
+	float ori_x;
+	float ori_y;
+	float ori_z;
+	float av_x;
+	float av_y;
+	float av_z;
+	CButton btnStart;
+	CButton btnStop;
 };
 
 

@@ -40,11 +40,20 @@
     <Filter Include="FrontEnd\3D Drawing Base\Basic Objects">
       <UniqueIdentifier>{5afae1c4-3f4b-4bb1-af73-540d7aeda705}</UniqueIdentifier>
     </Filter>
-    <Filter Include="FrontEnd\3D Drawing Base\Drone">
-      <UniqueIdentifier>{85c278a4-5fdb-45a8-94fc-60a693f50389}</UniqueIdentifier>
-    </Filter>
     <Filter Include="FrontEnd\3D Drawing Base\Scene Graph">
       <UniqueIdentifier>{dd1a83dc-7271-4dbb-aaa5-3a5adabe7db6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BackEnd">
+      <UniqueIdentifier>{17392787-b344-448a-876d-e4648f453aa5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BackEnd\Physics">
+      <UniqueIdentifier>{b82852ea-266f-490f-b948-875f62e896bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Interface">
+      <UniqueIdentifier>{4f0980f2-bddb-4fe2-80c4-9d8c391c1bc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Interface\Drone">
+      <UniqueIdentifier>{85c278a4-5fdb-45a8-94fc-60a693f50389}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -114,14 +123,35 @@
     <ClInclude Include="Box.h">
       <Filter>FrontEnd\3D Drawing Base\Basic Objects</Filter>
     </ClInclude>
-    <ClInclude Include="Drone.h">
-      <Filter>FrontEnd\3D Drawing Base\Drone</Filter>
-    </ClInclude>
-    <ClInclude Include="Node.h">
-      <Filter>FrontEnd\3D Drawing Base\Scene Graph</Filter>
-    </ClInclude>
     <ClInclude Include="Geometry.h">
       <Filter>FrontEnd\3D Drawing Base\Scene Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix.h">
+      <Filter>BackEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="Quaternion.h">
+      <Filter>BackEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector.h">
+      <Filter>BackEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="utility.h">
+      <Filter>BackEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsThread.h">
+      <Filter>BackEnd\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Body.h">
+      <Filter>BackEnd\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneralObject.h">
+      <Filter>Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneNode.h">
+      <Filter>FrontEnd\3D Drawing Base\Scene Graph</Filter>
+    </ClInclude>
+    <ClInclude Include="Drone.h">
+      <Filter>Interface\Drone</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -161,9 +191,6 @@
     <ClCompile Include="Direct3DView.cpp">
       <Filter>FrontEnd\3D Drawing Base</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>FrontEnd\3D Drawing Base\Cam</Filter>
-    </ClCompile>
     <ClCompile Include="Axis.cpp">
       <Filter>FrontEnd\3D Drawing Base\Basic Objects</Filter>
     </ClCompile>
@@ -176,14 +203,38 @@
     <ClCompile Include="Box.cpp">
       <Filter>FrontEnd\3D Drawing Base\Basic Objects</Filter>
     </ClCompile>
-    <ClCompile Include="Drone.cpp">
-      <Filter>FrontEnd\3D Drawing Base\Drone</Filter>
-    </ClCompile>
-    <ClCompile Include="Node.cpp">
-      <Filter>FrontEnd\3D Drawing Base\Scene Graph</Filter>
-    </ClCompile>
     <ClCompile Include="Geometry.cpp">
       <Filter>FrontEnd\3D Drawing Base\Scene Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix.cpp">
+      <Filter>BackEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="Quaternion.cpp">
+      <Filter>BackEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector.cpp">
+      <Filter>BackEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="utility.cpp">
+      <Filter>BackEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsThread.cpp">
+      <Filter>BackEnd\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>FrontEnd\3D Drawing Base\Cam</Filter>
+    </ClCompile>
+    <ClCompile Include="Body.cpp">
+      <Filter>BackEnd\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneNode.cpp">
+      <Filter>FrontEnd\3D Drawing Base\Scene Graph</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneralObject.cpp">
+      <Filter>Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="Drone.cpp">
+      <Filter>Interface\Drone</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

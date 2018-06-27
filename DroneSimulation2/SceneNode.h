@@ -10,8 +10,8 @@ public:
 	SceneNode();
 	virtual ~SceneNode();
 protected:
-	D3DXMATRIX parent_trans;
-	D3DXMATRIX transform;
+	D3DXMATRIX applied;
+	D3DXMATRIX rigid_transform;
 
 	std::unordered_map<D3DRENDERSTATETYPE, DWORD> parent_state;
 	std::unordered_map<D3DRENDERSTATETYPE, DWORD> render_state;
@@ -35,7 +35,7 @@ public:
 
 	bool validate_node();
 
-	int render(IDirect3DDevice9* pDev, D3DXMATRIX* parent_transform);
+	virtual int render(IDirect3DDevice9* pDev, D3DXMATRIX* parent_transform);
 
-	void release();
+	virtual void release();
 };

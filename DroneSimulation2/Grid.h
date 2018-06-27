@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Node.h"
+#include "SceneNode.h"
 #include "BasicVertex.h"
 
 class GridGeometry : public Geometry

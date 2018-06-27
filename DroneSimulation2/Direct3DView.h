@@ -36,9 +36,9 @@ public:
 	virtual void prepare();
 
 	virtual void process_input();
-	void pre_render();
+	
+	void render();
 	virtual void render_process();
-	void post_render();
 	void release_all();
 
 protected:

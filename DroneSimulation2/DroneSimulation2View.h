@@ -9,7 +9,7 @@
 #include "Grid.h"
 #include "Camera.h"
 #include "Direct3DView.h"
-#include "Node.h"
+#include "SceneNode.h"
 #include "Drone.h"
 
 class CDroneSimulation2View : public CDirect3DView
@@ -22,7 +22,7 @@ private:
 	Plane* plane;
 	Axis axis;
 	SceneNode* world_root;
-	DroneNode* drone_node;
+	Drone drone;
 
 	bool left_clicked;
 	CPoint old_pt;
@@ -62,6 +62,7 @@ public:
 	virtual void OnInitialUpdate();
 	virtual void OnDraw(CDC* /*pDC*/);
 	virtual void PostNcDestroy();
+	afx_msg void OnPaint();
 };
 
 #ifndef _DEBUG  // DroneSimulation2View.cpp의 디버그 버전

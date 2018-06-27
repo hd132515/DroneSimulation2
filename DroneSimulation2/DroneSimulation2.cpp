@@ -200,9 +200,8 @@ BOOL CDroneSimulation2App::OnIdle(LONG lCount)
 	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
 	CDroneSimulation2View* view = ((CMainFrame*)GetMainWnd())->getmainview();
 	view->process_input();
-	view->pre_render();
-	view->render_process();
-	view->post_render();
+	view->render();
 
-	return CWinApp::OnIdle(lCount);
+	//return CWinApp::OnIdle(lCount);
+	return true;
 }
