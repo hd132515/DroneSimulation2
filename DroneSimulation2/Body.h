@@ -26,6 +26,12 @@ public:
 	virtual void interaction(ForceList& forces, Body* body) = 0;
 };
 
+class PostUpdateFunc
+{
+public:
+	virtual void post_update() = 0;
+};
+
 class Body
 {
 public:
@@ -47,8 +53,10 @@ protected:
 	/*Derived quantities(auxiliary variables)*/
 	Matrix3x3 Iinv, R;
 	Vector3 v, omega;
+	Vector3 force, torque;
 
 	InteractionFunc* interaction;
+	PostUpdateFunc* post_update;
 private:
 	void update_frame();
 
@@ -61,11 +69,13 @@ public:
 	void set_angular_velo(Vector3& ang_vel);
 
 	float get_mass();
+	Vector3& get_COM();
 	Vector3& get_position();
 	Vector3& get_velocity();
+	Vector3 get_acceleration();
 	Matrix3x3& get_orientation();
 
-	void body_init(InteractionFunc* _interaction, MassList& masses, Vector3& position, Vector3& velocity, Vector3& rotation_axis, float angle, Vector3& ang_vel);
+	void body_init(InteractionFunc* _interaction, PostUpdateFunc* _post_update, MassList& masses, Vector3& position, Vector3& velocity, Vector3& rotation_axis, float angle, Vector3& ang_vel);
 
 	void start();
 

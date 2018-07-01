@@ -18,7 +18,6 @@ IMPLEMENT_DYNCREATE(CMainFrame, CFrameWnd)
 
 BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_WM_CREATE()
-	ON_COMMAND(ID_VIEW_CONTROLLER, &CMainFrame::OnViewController)
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -31,18 +30,13 @@ static UINT indicators[] =
 
 // CMainFrame 생성/소멸
 
-CMainFrame::CMainFrame() : m_pControllerDlg(NULL), m_plogframe(NULL)
+CMainFrame::CMainFrame() : m_plogframe(NULL)
 {
 	// TODO: 여기에 멤버 초기화 코드를 추가합니다.
 }
 
 CMainFrame::~CMainFrame()
 {
-	if (m_pControllerDlg != NULL)
-	{
-		m_pControllerDlg->DestroyWindow();
-		delete m_pControllerDlg;
-	}
 
 	if (m_plogframe != NULL)
 	{
@@ -76,13 +70,6 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	EnableDocking(CBRS_ALIGN_ANY);
 	DockControlBar(&m_wndToolBar);
 
-	//Automatically Open Controller Dialog(Modeless)
-	if (m_pControllerDlg == NULL)
-	{
-		m_pControllerDlg = new CControllerDlg(this);
-		m_pControllerDlg->Create(IDD_CONTROLLER, this);
-	}
-	m_pControllerDlg->ShowWindow(SW_SHOW);
 
 
 
@@ -141,11 +128,9 @@ BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
 		return FALSE;
 	}
 
-
-
-	CDroneSimulation2View* pView = (CDroneSimulation2View*)m_splitterwnd.GetPane(0, 0);
-	/*int res = pView->initialize_d3d();*/
-
+	auto view = ((CScenarioSetupView*)m_splitterwnd.GetPane(0, 1));
+	auto main_view = ((CDroneSimulation2View*)m_splitterwnd.GetPane(0, 0));
+	view->set_controller(main_view->get_controller());
 
 	m_plogframe = new CLogFrame((CDroneSimulation2Doc*)pContext->m_pCurrentDoc);
 
@@ -155,17 +140,12 @@ BOOL CMainFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
 	m_plogframe->ShowWindow(SW_MAXIMIZE);
 	m_plogframe->UpdateWindow();
 
+	m_plogframe->initview();
+
 	return TRUE;
 }
 
 CDroneSimulation2View* CMainFrame::getmainview()
 {
 	return (CDroneSimulation2View*)m_splitterwnd.GetPane(0, 0);
-}
-
-void CMainFrame::OnViewController()
-{
-	// TODO: 여기에 명령 처리기 코드를 추가합니다.
-	if(m_pControllerDlg != NULL)
-		m_pControllerDlg->ShowWindow(SW_SHOW);
 }

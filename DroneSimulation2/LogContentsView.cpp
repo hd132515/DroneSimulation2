@@ -10,13 +10,17 @@
 
 IMPLEMENT_DYNCREATE(CLogContentsView, CView)
 
-CLogContentsView::CLogContentsView()
+CLogContentsView::CLogContentsView() : graph(nullptr)
 {
 
 }
 
 CLogContentsView::~CLogContentsView()
 {
+	if (graph != nullptr)
+	{
+		delete graph;
+	}
 }
 
 BEGIN_MESSAGE_MAP(CLogContentsView, CView)
@@ -50,3 +54,13 @@ void CLogContentsView::Dump(CDumpContext& dc) const
 
 
 // CLogContentsView 메시지 처리기입니다.
+void CLogContentsView::test()
+{
+	graph = new COScopeCtrl();
+
+	RECT rect;
+	GetWindowRect(&rect);
+	ScreenToClient(&rect);
+	graph->Create(WS_VISIBLE | WS_CHILD, rect, this);
+	graph->InvalidateCtrl();
+}

@@ -11,6 +11,8 @@
 #include "Direct3DView.h"
 #include "SceneNode.h"
 #include "Drone.h"
+#include "Controller.h"
+#include "ControllerDlg.h"
 
 class CDroneSimulation2View : public CDirect3DView
 {
@@ -23,6 +25,8 @@ private:
 	Axis axis;
 	SceneNode* world_root;
 	Drone drone;
+	Controller controller;
+	CControllerDlg* m_pControllerDlg;
 
 	bool left_clicked;
 	CPoint old_pt;
@@ -34,6 +38,9 @@ protected: // serialization에서만 만들어집니다.
 // 특성입니다.
 public:
 	CDroneSimulation2Doc* GetDocument() const;
+
+	Controller* get_controller();
+	Drone& get_drone();
 
 // 작업입니다.
 public:
@@ -62,7 +69,10 @@ public:
 	virtual void OnInitialUpdate();
 	virtual void OnDraw(CDC* /*pDC*/);
 	virtual void PostNcDestroy();
+	afx_msg LRESULT OnUpCommand(WPARAM, LPARAM);
+	afx_msg LRESULT OnCommandCancel(WPARAM, LPARAM);
 	afx_msg void OnPaint();
+	afx_msg void OnViewController();
 };
 
 #ifndef _DEBUG  // DroneSimulation2View.cpp의 디버그 버전

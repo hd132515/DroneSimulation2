@@ -2,6 +2,7 @@
 
 #include <d3dx9.h>
 #include <unordered_map>
+#include <memory>
 #include "Geometry.h"
 
 class SceneNode

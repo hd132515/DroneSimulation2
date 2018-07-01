@@ -45,7 +45,7 @@ void PhysicsThread::physics_updater()
 	{
 		while (ready)
 		{
-			while (ready && frame_dur.size() > 100);
+			while (ready && frame_dur.size() > 25);
 
 			frame_dur.push_back(thread_execution);
 

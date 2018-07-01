@@ -34,6 +34,11 @@ CScenarioSetupView::~CScenarioSetupView()
 {
 }
 
+void CScenarioSetupView::set_controller(Controller* _controller)
+{
+	controller = _controller;
+}
+
 void CScenarioSetupView::DoDataExchange(CDataExchange* pDX)
 {
 	CFormView::DoDataExchange(pDX);
@@ -106,6 +111,7 @@ void CScenarioSetupView::OnBnClickedStartBtn()
 	drone->set_angular_velo(angular_v);
 
 	PhysicsThread::get_instance().start();
+	controller->start();
 }
 
 
@@ -115,4 +121,5 @@ void CScenarioSetupView::OnBnClickedStopBtn()
 	btnStart.EnableWindow(TRUE);
 	btnStop.EnableWindow(FALSE);
 	PhysicsThread::get_instance().stop();
+	controller->stop();
 }

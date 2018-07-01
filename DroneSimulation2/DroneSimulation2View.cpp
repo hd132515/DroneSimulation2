@@ -13,6 +13,8 @@
 #include "DroneSimulation2View.h"
 #include <typeinfo>
 #include "PhysicsThread.h"
+#include "Controller.h"
+#include "ControlCommands.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -32,6 +34,9 @@ BEGIN_MESSAGE_MAP(CDroneSimulation2View, CView)
 	ON_WM_LBUTTONDOWN()
 	ON_WM_LBUTTONUP()
 	ON_WM_PAINT()
+	ON_MESSAGE(WM_UPCOMMAND, OnUpCommand)
+	ON_MESSAGE(WM_CMDCANCEL, OnCommandCancel)
+	ON_COMMAND(ID_VIEW_CONTROLLER, &CDroneSimulation2View::OnViewController)
 END_MESSAGE_MAP()
 
 // CDroneSimulation2View 생성/소멸
@@ -42,7 +47,9 @@ CDroneSimulation2View::CDroneSimulation2View() :
 	grid(new Grid()),
 	plane(new Plane()),
 	drone(),
-	world_root(new SceneNode())
+	world_root(new SceneNode()),
+	controller(drone.get_motor_array(), drone.get_bluetooth(), drone.get_accelerometer()),
+	m_pControllerDlg(NULL)
 {
 	// TODO: 여기에 생성 코드를 추가합니다.
 	active_camera = &camera;
@@ -50,6 +57,11 @@ CDroneSimulation2View::CDroneSimulation2View() :
 
 CDroneSimulation2View::~CDroneSimulation2View()
 {
+	if (m_pControllerDlg != NULL)
+	{
+		m_pControllerDlg->DestroyWindow();
+		delete m_pControllerDlg;
+	}
 }
 
 BOOL CDroneSimulation2View::PreCreateWindow(CREATESTRUCT& cs)
@@ -83,6 +95,10 @@ CDroneSimulation2Doc* CDroneSimulation2View::GetDocument() const // 디버그되지 �
 }
 #endif //_DEBUG
 
+Controller* CDroneSimulation2View::get_controller()
+{
+	return &controller;
+}
 
 // CDroneSimulation2View 메시지 처리기
 
@@ -92,6 +108,15 @@ void CDroneSimulation2View::OnInitialUpdate()
 	CView::OnInitialUpdate();
 
 	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
+
+	//Automatically Open Controller Dialog(Modeless)
+	if (m_pControllerDlg == NULL)
+	{
+		m_pControllerDlg = new CControllerDlg(this);
+		m_pControllerDlg->Create(IDD_CONTROLLER, this);
+	}
+	m_pControllerDlg->ShowWindow(SW_SHOW);
+
 	initialize_d3d();
 	prepare();
 }
@@ -134,6 +159,7 @@ void CDroneSimulation2View::prepare()
 	world_root->register_render_state(D3DRS_SPECULARENABLE, TRUE);
 	world_root->register_child_node(grid);
 	world_root->register_child_node(plane);
+
 }
 
 void CDroneSimulation2View::process_input()
@@ -201,6 +227,8 @@ void CDroneSimulation2View::process_input()
 
 void CDroneSimulation2View::render_process()
 {
+	controller.loop();
+
 	if (PhysicsThread::get_instance().is_physics_enabled())
 	{
 		PhysicsThread::get_instance().notice_render();
@@ -244,4 +272,34 @@ void CDroneSimulation2View::OnPaint()
 					   // TODO: 여기에 메시지 처리기 코드를 추가합니다.
 					   // 그리기 메시지에 대해서는 CDirect3DView::OnPaint()을(를) 호출하지 마십시오.
 	render();
+}
+
+LRESULT CDroneSimulation2View::OnUpCommand(WPARAM wParam, LPARAM lParam)
+{
+	short data = CMD_MAKE_MAIN(CMD_MAIN_MAN) | CMD_MAKE_SUB(CMD_SUB_MOVE) | CMD_MAKE_MOVE(CMD_MOVE_UP);
+	drone.get_bluetooth().add_data(&data, sizeof(short));
+	return 0;
+}
+
+LRESULT CDroneSimulation2View::OnCommandCancel(WPARAM wParam, LPARAM lParam)
+{
+	short data = CMD_INIT_MOTOR;
+	drone.get_bluetooth().add_data(&data, sizeof(short));
+	
+	data = CMD_NULL_CMD;
+	drone.get_bluetooth().add_data(&data, sizeof(short));
+	
+	return 0;
+}
+
+void CDroneSimulation2View::OnViewController()
+{
+	// TODO: 여기에 명령 처리기 코드를 추가합니다.
+	if (m_pControllerDlg != NULL)
+		m_pControllerDlg->ShowWindow(SW_SHOW);
+}
+
+Drone& CDroneSimulation2View::get_drone()
+{
+	return drone;
 }

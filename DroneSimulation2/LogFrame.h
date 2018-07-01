@@ -2,6 +2,8 @@
 
 #include "DroneSimulation2Doc.h"
 #include "FixedSplitterWnd.h"
+#include "LogContentsView.h"
+#include "LogTargetView.h"
 
 // CLogFrame 프레임입니다.
 
@@ -16,12 +18,15 @@ public:
 private:
 	CDroneSimulation2Doc* m_ptargetdoc;
 	CFixedSplitterWnd m_splitterwnd;
+	CLogContentsView* pView;
 
 protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	virtual BOOL OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext);
+
+	void initview();
 };
 
 

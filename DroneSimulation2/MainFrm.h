@@ -32,7 +32,6 @@ public:
 private:
 	CLogFrame* m_plogframe;
 	CFixedSplitterWnd m_splitterwnd;
-	CControllerDlg* m_pControllerDlg;
 
 // 구현입니다.
 public:
@@ -53,7 +52,6 @@ protected:
 
 	virtual BOOL OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext);
 public:
-	afx_msg void OnViewController();
 };
 
 

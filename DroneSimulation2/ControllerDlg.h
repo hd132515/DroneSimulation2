@@ -1,4 +1,9 @@
 #pragma once
+#include "afxwin.h"
+
+#define WM_CMDCANCEL WM_USER+99
+#define WM_UPCOMMAND WM_USER+100
+#define WM_DOWNCOMMAND WM_USER+101
 
 
 // CControllerDlg 대화 상자입니다.
@@ -20,4 +25,7 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
 
 	DECLARE_MESSAGE_MAP()
+public:
+	CButton btn_up;
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
 };

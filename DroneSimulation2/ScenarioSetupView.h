@@ -1,7 +1,7 @@
 #pragma once
 #include "afxwin.h"
 
-
+#include "Controller.h"
 
 // CScenarioSetupView 폼 뷰입니다.
 
@@ -27,6 +27,8 @@ public:
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
 
+private:
+	Controller* controller;
 	DECLARE_MESSAGE_MAP()
 public:
 	virtual void OnInitialUpdate();
@@ -46,6 +48,8 @@ public:
 	float av_z;
 	CButton btnStart;
 	CButton btnStop;
+
+	void set_controller(Controller* _controller);
 };
 
 

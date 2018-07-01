@@ -52,8 +52,23 @@
     <Filter Include="Interface">
       <UniqueIdentifier>{4f0980f2-bddb-4fe2-80c4-9d8c391c1bc4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Interface\Drone">
+    <Filter Include="FrontEnd\Log Window\Plotting">
+      <UniqueIdentifier>{2802636b-4dc9-4ee5-a269-8f5dc7956b93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BackEnd\Math">
+      <UniqueIdentifier>{5a88501f-a3c0-446c-b5ef-5f4652aa4969}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Drone_Internal">
+      <UniqueIdentifier>{540e7921-9bc7-46b5-a1f8-427fdb87aa93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Interface\SceneNode-Body">
+      <UniqueIdentifier>{f8420062-d4c6-433e-9bd7-80b69fc1eb46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Drone">
       <UniqueIdentifier>{85c278a4-5fdb-45a8-94fc-60a693f50389}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Drone\Modules">
+      <UniqueIdentifier>{c7fe6964-9731-4540-b6f3-1552ea780d10}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -126,15 +141,6 @@
     <ClInclude Include="Geometry.h">
       <Filter>FrontEnd\3D Drawing Base\Scene Graph</Filter>
     </ClInclude>
-    <ClInclude Include="Matrix.h">
-      <Filter>BackEnd</Filter>
-    </ClInclude>
-    <ClInclude Include="Quaternion.h">
-      <Filter>BackEnd</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector.h">
-      <Filter>BackEnd</Filter>
-    </ClInclude>
     <ClInclude Include="utility.h">
       <Filter>BackEnd</Filter>
     </ClInclude>
@@ -144,14 +150,44 @@
     <ClInclude Include="Body.h">
       <Filter>BackEnd\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="GeneralObject.h">
-      <Filter>Interface</Filter>
-    </ClInclude>
     <ClInclude Include="SceneNode.h">
       <Filter>FrontEnd\3D Drawing Base\Scene Graph</Filter>
     </ClInclude>
     <ClInclude Include="Drone.h">
-      <Filter>Interface\Drone</Filter>
+      <Filter>Drone</Filter>
+    </ClInclude>
+    <ClInclude Include="OScopeCtrl.h">
+      <Filter>FrontEnd\Log Window\Plotting</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix.h">
+      <Filter>BackEnd\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Quaternion.h">
+      <Filter>BackEnd\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector.h">
+      <Filter>BackEnd\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="BluetoothModule.h">
+      <Filter>Drone\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Servo.h">
+      <Filter>Drone\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="ControlCommands.h">
+      <Filter>Drone_Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneralObject.h">
+      <Filter>Interface\SceneNode-Body</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>Drone_Internal</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.hpp">
+      <Filter>Etc</Filter>
+    </ClInclude>
+    <ClInclude Include="Accelerometer.h">
+      <Filter>Drone\Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -206,15 +242,6 @@
     <ClCompile Include="Geometry.cpp">
       <Filter>FrontEnd\3D Drawing Base\Scene Graph</Filter>
     </ClCompile>
-    <ClCompile Include="Matrix.cpp">
-      <Filter>BackEnd</Filter>
-    </ClCompile>
-    <ClCompile Include="Quaternion.cpp">
-      <Filter>BackEnd</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector.cpp">
-      <Filter>BackEnd</Filter>
-    </ClCompile>
     <ClCompile Include="utility.cpp">
       <Filter>BackEnd</Filter>
     </ClCompile>
@@ -230,11 +257,35 @@
     <ClCompile Include="SceneNode.cpp">
       <Filter>FrontEnd\3D Drawing Base\Scene Graph</Filter>
     </ClCompile>
-    <ClCompile Include="GeneralObject.cpp">
-      <Filter>Interface</Filter>
-    </ClCompile>
     <ClCompile Include="Drone.cpp">
-      <Filter>Interface\Drone</Filter>
+      <Filter>Drone</Filter>
+    </ClCompile>
+    <ClCompile Include="OScopeCtrl.cpp">
+      <Filter>FrontEnd\Log Window\Plotting</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix.cpp">
+      <Filter>BackEnd\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Quaternion.cpp">
+      <Filter>BackEnd\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector.cpp">
+      <Filter>BackEnd\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="BluetoothModule.cpp">
+      <Filter>Drone\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Servo.cpp">
+      <Filter>Drone\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneralObject.cpp">
+      <Filter>Interface\SceneNode-Body</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller.cpp">
+      <Filter>Drone_Internal</Filter>
+    </ClCompile>
+    <ClCompile Include="Accelerometer.cpp">
+      <Filter>Drone\Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

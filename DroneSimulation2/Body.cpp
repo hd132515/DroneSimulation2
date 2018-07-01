@@ -32,9 +32,10 @@ void Body::set_angular_velo(Vector3& ang_vel)
 	omega = ang_vel;
 }
 
-void Body::body_init(InteractionFunc* _interaction, MassList& masses, Vector3& position, Vector3& velocity, Vector3& rotation_axis, float angle, Vector3& ang_vel)
+void Body::body_init(InteractionFunc* _interaction, PostUpdateFunc* _post_update, MassList& masses, Vector3& position, Vector3& velocity, Vector3& rotation_axis, float angle, Vector3& ang_vel)
 {
 	interaction = _interaction;
+	post_update = _post_update;
 	
 	calculate_constants(masses);
 
@@ -54,7 +55,7 @@ void Body::calculate_constants(std::list<Mass>& masses)
 	}
 	COM /= mass;
 
-	//In rigid body system, the origin point is the center of mass
+	//CM Coordinate
 	for (auto mass : masses)
 	{
 		mass.pos -= COM;
@@ -95,14 +96,19 @@ void Body::update_frame()
 	transform._11 = R._11; transform._12 = R._21; transform._13 = R._31;
 	transform._21 = R._12; transform._22 = R._22; transform._23 = R._32;
 	transform._31 = R._13; transform._32 = R._23; transform._33 = R._33;
-	transform._41 = x._1 - COM._1; transform._42 = x._2 - COM._2; transform._43 = x._3 - COM._3; transform._44 = 1.f;
+	
+	transform._41 = -COM._1*R._11 - COM._2*R._12 - COM._3*R._13 + x._1; 
+	transform._42 = -COM._1*R._21 - COM._2*R._22 - COM._3*R._23 + x._2;
+	transform._43 = -COM._1*R._31 - COM._2*R._32 - COM._3*R._33 + x._3;
+	transform._44 = 1.f;
 
 	frame_datas.push_back(transform);
 }
 
 void Body::update(float deltaTime)
 {
-	Vector3 force, torque;
+	force = Vector3();
+	torque = Vector3();
 
 	std::list<std::pair<Vector3, Vector3>> forces;
 	interaction->interaction(forces, this);
@@ -126,6 +132,8 @@ void Body::update(float deltaTime)
 	R = q.normalize().to_matrix();
 
 	update_frame();
+	if (post_update != nullptr)
+		post_update->post_update();
 }
 
 D3DXMATRIX Body::get_render_frame()
@@ -148,6 +156,11 @@ float Body::get_mass()
 	return mass;
 }
 
+Vector3& Body::get_COM()
+{
+	return COM;
+}
+
 Vector3& Body::get_position()
 {
 	return x;
@@ -161,6 +174,11 @@ Vector3& Body::get_velocity()
 Matrix3x3& Body::get_orientation()
 {
 	return R;
+}
+
+Vector3 Body::get_acceleration()
+{
+	return (force / mass);
 }
 
 void Body::clean_frames(int target_frames)

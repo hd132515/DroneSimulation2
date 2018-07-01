@@ -1,5 +1,6 @@
 #pragma once
 
+#include "OScopeCtrl.h"
 
 // CLogContentsView ∫‰¿‘¥œ¥Ÿ.
 
@@ -22,6 +23,9 @@ public:
 
 protected:
 	DECLARE_MESSAGE_MAP()
+public:
+	COScopeCtrl* graph;
+	void test();
 };
 
 

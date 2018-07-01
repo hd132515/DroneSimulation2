@@ -4,8 +4,6 @@
 #include "stdafx.h"
 #include "DroneSimulation2.h"
 #include "LogFrame.h"
-#include "LogContentsView.h"
-#include "LogTargetView.h"
 
 
 // CLogFrame
@@ -62,14 +60,21 @@ BOOL CLogFrame::OnCreateClient(LPCREATESTRUCT lpcs, CCreateContext* pContext)
 	newContext.m_pCurrentFrame = NULL;
 	newContext.m_pCurrentDoc = m_ptargetdoc;
 	if (!m_splitterwnd.CreateView(0, 0, RUNTIME_CLASS(CLogTargetView), CSize((UINT)(scwidth * 0.1f), 0), &newContext)) {
-		AfxMessageBox(L"LogFrame.cpp : CLogFrame::OnCreateClient / m_splitterwnd.CreateView(0,0)");
+		AfxMessageBox(L"LogFrame.cpp : CLogFrame::OnCreateClient / m_splitterwnd.CreateView(CLogTargetView)");
 		return FALSE;
 	}
 
 	if (!m_splitterwnd.CreateView(0, 1, RUNTIME_CLASS(CLogContentsView), CSize((UINT)(scwidth * 0.9f), 0), &newContext)) {
-		AfxMessageBox(L"LogFrame.cpp : CLogFrame::OnCreateClient / m_splitterwnd.CreateView(0,1)");
+		AfxMessageBox(L"LogFrame.cpp : CLogFrame::OnCreateClient / m_splitterwnd.CreateView(CLogContentsView)");
 		return FALSE;
 	}
 
+	pView = (CLogContentsView*)m_splitterwnd.GetPane(0, 1);
+
 	return TRUE;
+}
+
+void CLogFrame::initview()
+{
+	pView->test();
 }
